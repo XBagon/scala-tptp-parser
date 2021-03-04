@@ -52,7 +52,7 @@ object TPTPParser {
   class TPTPParseException(message: String, val line: Int, val offset: Int) extends RuntimeException(message)
 
   /**
-    * Parses a whole TPTP file given as [[io.Source]].
+    * Parses a whole TPTP file given as [[Source]].
     *
     * @param input The TPTP problem file.
     * @return The parsing result
@@ -71,7 +71,7 @@ object TPTPParser {
     * @return The parsing result
     * @throws TPTPParseException If an parsing error occurred.
     */
-  @inline final def problem(input: String): Problem = problem(io.Source.fromString(input))
+  @inline final def problem(input: String): Problem = problem(Source.fromString(input))
 
   /**
     * Parses an TPTP annotated formula (THF/TFF/FOF/CNF/TPI) given as String.
@@ -205,7 +205,7 @@ object TPTPParser {
     result
   }
 
-  @inline private[this] final def parserFromString(input: String): TPTPParser = new TPTPParser(new TPTPLexer(io.Source.fromString(input)))
+  @inline private[this] final def parserFromString(input: String): TPTPParser = new TPTPParser(new TPTPLexer(Source.fromString(input)))
 
   final class TPTPLexer(input: Source) extends collection.BufferedIterator[TPTPLexer.TPTPLexerToken] {
     private[this] final lazy val iter = input.buffered
